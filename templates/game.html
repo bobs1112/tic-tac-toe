@@ -1,0 +1,33 @@
+<!--html-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Крестики нолики</title>
+        <link rel="stylesheet"; href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="icon" sizes="1378x1378" href="{{ url_for('static', filename='icon/icon.ico')}}">
+    </head>
+    <body>
+        <button id="update">testo</button>
+        <table>
+            <tbody>
+                <tr>
+                    <td><button id="oo"; class="cell"><div id="oos">_</div></button></td>
+                    <td><button id="ot"; class="cell"><div id="ots">_</div></button></td>
+                    <td><button id="oth"; class="cell"><div id="oths">_</div></button></td>
+                </tr>
+                <tr>
+                    <td><button id="to"; class="cell"><div id="tos">_</div></button></td>
+                    <td><button id="tt"; class="cell"><div id="tts">_</div></button></td>
+                    <td><button id="tth"; class="cell"><div id="tths">_</div></button></td>
+                </tr>
+                <tr>
+                    <td><button id="tho"; class="cell"><div id="thos">_</div></button></td>
+                    <td><button id="tht"; class="cell"><div id="thts">_</div></button></td>
+                    <td><button id="thth"; class="cell"><div id="thths">_</div></button></td>
+                </tr>
+            </tbody>
+        </table>
+        <script src="{{ url_for('static', filename='js/sym.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='js/examination.js') }}"></script>
+    </body>
+</html>

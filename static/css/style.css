@@ -1,0 +1,18 @@
+/* css */
+.cell {
+    color: rgba(10, 54, 75, 0.719);
+    background-color:rgba(7, 65, 92, 0.719);
+    font-size: 34px;
+    font-weight: bold;
+    width: 100px; height: 60px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 15px;
+    border: none;
+    transition: transform .9s;
+}
+.cell:hover{
+    transform: scale(1.08);
+}
+.cell:active{
+    transform: scale(0.9305);
+}

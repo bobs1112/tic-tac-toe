@@ -21,7 +21,7 @@ currentState = beforeStartState
 
 @app.route("/")
 def index():
-    return render_template('game.html')
+    return render_template('index.html')
 
 games = {}
 cells = [['_', '_', '_'], 

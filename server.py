@@ -47,15 +47,38 @@ def start() :
         return render_template('game.html')
         
     return "Error"
-
+def rowreturn(row):
+    global cells
+    return cells[row]
+def returncolumn(column):
+    global cells
+    return [cells[0][column], cells[1][column], cells[2][column]]
+def count(arr, sym):
+    acc = 0
+    for i in arr:
+        if i == sym:
+            acc += 1
+    return acc
+def returndiagonal(diagonal):
+    global cells
+    if diagonal == 0:
+        return [cells[0][0], cells[1][1], cells[2][2]]
+    elif diagonal == 1:
+        return [cells[0][2], cells[1][1], cells[2][0]]
+    return 'Erorr'
 def exa(sym):
-    if cells[0][0] == sym and cells[1][0] == sym and cells[2][0] == sym:
-        return True
-    if cells[0][0] == sym and cells[0][1] == sym and cells[0][2] == sym:
-        return True
-    if cells[0][0] == sym and cells[1][1] == sym and cells[2][2] == sym:
-        return True
-    
+    for i in range(3):
+        theRow = rowreturn(i)
+        if count(theRow, sym) == 3:
+            return True
+    for i in range(3):
+        theColumn = returncolumn(i)
+        if count(theColumn, sym) == 3:
+            return True
+    for i in range(2):
+        TheDiagonal = returndiagonal(i)
+        if count(TheDiagonal, sym) == 3:
+            return True
     return False
 
 

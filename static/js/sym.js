@@ -1,7 +1,4 @@
 // js
-window.sym1 = "X";
-window.sym2 = "O";
-
 const tg = ['#oos', '#ots', '#oths', '#tos', '#tts', '#tths', '#thos', '#thts', '#thths']
 
 async function clear () {

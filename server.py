@@ -1,8 +1,8 @@
 #python
 from flask import Flask, render_template, jsonify, session
-from flask_restful import Api, Resource
 from flask_session import Session
-
+import threading
+import time
 app = Flask("__name__")
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -14,6 +14,8 @@ beforeStartState = "До начала"
 waitSecondPlayerGameState = "Ждем подключения второго игрока"
 crossMakeMove = "Крестики делают ход"
 nullMakeMove = "Нолики делают ход"
+crossTimeOut = "Крестики вышли по времени"
+nullTimeOut = "Нолики вышли по времени"
 gameComplete = "Конец игры"
 
 currentState = beforeStartState
@@ -22,7 +24,15 @@ currentState = beforeStartState
 @app.route("/")
 def index():
     return render_template('index.html')
- 
+def delay_action(sym):
+    global currentState
+    
+    time.sleep(30)
+    if sym == 'O':
+        currentState = nullTimeOut
+    elif sym == 'X':
+        currentState = crossTimeOut
+    return 'lol'
 games = {}
 cells = [['_', '_', '_'], 
          ['_', '_', '_'],
@@ -84,7 +94,24 @@ def exa(sym):
 
 @app.route('/cells')
 def returncells():
-    return jsonify(cells)
+    global currentState
+    if currentState == crossTimeOut and session["role"] == 'O':
+        return jsonify({
+            'state' : "win",
+            'message' : "крестики вышли по времени",
+            'cells' : cells
+        });
+    if currentState == nullTimeOut and session["role"] == 'X':
+        return jsonify({
+            'state' : "win",
+            'message' : "нолики вышли по времени",
+            'cells' : cells
+        });
+    return jsonify({
+            'state' : "netural",
+            'message' : "",
+            'cells' : cells
+        });
 
 @app.route('/make_move/<int:column>/<int:row>')
 def make_move(column, row):
@@ -118,7 +145,8 @@ def make_move(column, row):
             })
         
         currentState = nullMakeMove
-
+        timer_thread = threading.Thread(target=delay_action, args=('O'))
+        timer_thread.start()
         return jsonify({
             'success' : True,
             'cells' : cells
@@ -128,7 +156,6 @@ def make_move(column, row):
     if currentState == nullMakeMove and role == 'O' :  
         cells[column][row] = 'O'
         currentState = crossMakeMove
-
         if exa('O') :
             currentState = gameComplete
             return jsonify({
@@ -137,7 +164,8 @@ def make_move(column, row):
                 'cells' : cells
             })
         
-
+        timer_thread = threading.Thread(target=delay_action, args=('X'))
+        timer_thread.start()
         return jsonify({
             'success' : True,
             'cells' : cells

@@ -10,9 +10,12 @@ async function updatecells() {
 
                 const result = await response.json();
                 console.log(result);
-                await update(result);
                 
-                
+                if (result.state == "win"){
+                    alert(result.message);
+                    return;
+                }
+                await update(result.cells);
             } catch (error) {
                 console.error(error.message);
             }

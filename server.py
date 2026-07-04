@@ -194,11 +194,12 @@ def make_move(column, row):
 
 @app.route("/clear")
 def clear():
-    global cells
-    cells = [['_', '_', '_'], 
+    if currentState == gameComplete:
+        global cells
+        cells = [['_', '_', '_'], 
          ['_', '_', '_'],
          ['_', '_', '_'],  ]
-    return ""
-
+        return ""
+    return "No, sorry—that vulnerability has already been patched)))"
 if __name__ == '__main__':
     app.run(debug=True)

@@ -10,17 +10,18 @@ async function updatecells() {
 
                 const result = await response.json();
                 console.log(result);
-                
+                document.querySelector('#state').textContent = result.message;
                 if (result.state == "win"){
-                    alert(result.message);
+                    //soon
                     return;
                 }
                 await update(result.cells);
+                
             } catch (error) {
                 console.error(error.message);
             }
 
             updatecells();
-    }, 1000);
+    }, 500);
 }
 updatecells();

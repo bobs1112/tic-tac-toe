@@ -17,22 +17,34 @@ nullMakeMove = "Нолики делают ход"
 crossTimeOut = "Крестики вышли по времени"
 nullTimeOut = "Нолики вышли по времени"
 gameComplete = "Конец игры"
+def empty():
+    return
 
+timer_theard = threading.Thread(target=empty)
+timer_theard.start()
 currentState = beforeStartState
-
-
+time_left = 0
+stop_event = threading.Event()
 @app.route("/")
 def index():
     return render_template('index.html')
 def delay_action(sym):
+    global time_left
     global currentState
-    
-    time.sleep(30)
+    global stop_event
+    time_left = 15
+    for i in range(15):
+        time.sleep(1)
+        time_left -= 1
+        if stop_event.is_set():
+            return
+
     if sym == 'O':
         currentState = nullTimeOut
     elif sym == 'X':
         currentState = crossTimeOut
     return 'lol'
+
 games = {}
 cells = [['_', '_', '_'], 
          ['_', '_', '_'],
@@ -95,6 +107,25 @@ def exa(sym):
 @app.route('/cells')
 def returncells():
     global currentState
+    global time_left
+    if currentState == waitSecondPlayerGameState:
+         return jsonify({
+            'state' : "netural",
+            'message' : waitSecondPlayerGameState,
+            'cells' : cells
+        });
+    if (currentState == crossMakeMove and session["role"] == 'X') or (currentState == nullMakeMove and session["role"] == 'O'):
+        return jsonify({
+            'state' : "netural",
+            'message' : f"ваш ход, осталось: {time_left} сек.",
+            'cells' : cells
+        });
+    if (currentState == crossMakeMove and session["role"] == 'O') or (currentState == nullMakeMove and session["role"] == 'X'):
+         return jsonify({
+            'state' : "netural",
+            'message' : f"ждем хода второго игрока, осталось: {time_left} сек.",
+            'cells' : cells
+        });
     if currentState == crossTimeOut and session["role"] == 'O':
         return jsonify({
             'state' : "win",
@@ -116,9 +147,9 @@ def returncells():
 @app.route('/make_move/<int:column>/<int:row>')
 def make_move(column, row):
     global cells
+    global stop_event
     global currentState
-     
-
+    global timer_theard
     if cells[column][row] != '_' :
         return jsonify({
             'success' : False,
@@ -126,6 +157,8 @@ def make_move(column, row):
         });
     
     
+    stop_event.set()
+    timer_theard.join()
     role = session["role"]
     
     # если игра пока не закончена, то дать команду ждать второго игрока, а второму игроку показать сделанный ход и ждать его хода 
@@ -145,8 +178,10 @@ def make_move(column, row):
             })
         
         currentState = nullMakeMove
+        stop_event.clear()
         timer_thread = threading.Thread(target=delay_action, args=('O'))
         timer_thread.start()
+        
         return jsonify({
             'success' : True,
             'cells' : cells
@@ -163,7 +198,7 @@ def make_move(column, row):
                 'winner' : 'O',
                 'cells' : cells
             })
-        
+        stop_event.clear()
         timer_thread = threading.Thread(target=delay_action, args=('X'))
         timer_thread.start()
         return jsonify({

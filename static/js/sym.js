@@ -1,16 +1,10 @@
 // js
 const tg = ['#oos', '#ots', '#oths', '#tos', '#tts', '#tths', '#thos', '#thts', '#thths']
 
-async function clear () {
-    fetch("/clear")
-    for (let tg1 of tg) {
-        document.querySelector(tg1).textContent = "_"
-    }
-    
-}
 
 async function MakeMove(column, row) {
-    const url = `/make_move/${column}/${row}`;
+    const currentUrl = window.location.href
+    const url = currentUrl + `/make_move/${column}/${row}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {

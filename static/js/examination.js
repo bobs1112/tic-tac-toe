@@ -1,7 +1,8 @@
 // js
 async function updatecells() {
         setTimeout(async function() {
-            const url = `/cells`;
+            const currentUrl = window.location.href
+            const url = currentUrl + `/cells`;
             try {
                 const response = await fetch(url);
                 if (!response.ok) {

@@ -96,7 +96,7 @@ class Game:
         return self.currentState == crossMakeMove and sym == 'O' or self.currentState == nullMakeMove and sym == 'X'
     
     def TimeOut(self, sym):
-        return self.currentState == crossTimeOut and sym == 'O' or self.currentState == nullTimeOut and sym == 'X'
+       return self.currentState == nullTimeOut and sym == 'O' or self.currentState == crossTimeOut and sym == 'X'
     
     def CellIsEmpty(self, column, row):
         return self.cells[column][row] != '_'

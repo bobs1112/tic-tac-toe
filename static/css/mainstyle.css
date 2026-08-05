@@ -20,6 +20,10 @@
 .butt:hover{
     transform: scale(1.13);
 }
+.container{
+    display: flex;
+    justify-content: center;
+}
 body{
     background-color: rgba(7, 65, 92, 0.719);
 }

@@ -4,6 +4,22 @@
     color: rgba(10, 54, 75, 0.719);
     font-size: 70px;
 }
+.butt{
+    text-align: center;
+    font-family: URW Chancery L, cursive;
+    color: rgba(9, 35, 105, 0.719);
+    background-color:rgba(7, 65, 92, 0.719);
+    border-radius: 30px;
+    border: none;
+    width: 200px; height: 120px;
+    font-weight: bold;
+    font-size: 30px;
+    margin: 15px;
+    transition: transform .9s;
+}
+.butt:hover{
+    transform: scale(1.13);
+}
 body{
     background-color: rgba(7, 65, 92, 0.719);
 }

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>крестики нолики</title>
-        <link rel="stylesheet"; href="{{ url_for('static', filename='css/mainstyle.css') }}">
-    </head>
-    <body>
-        <h1 class="hm">Крестики нолики</h1>
-        <button class="hm"><a href="/start_game">зайти</a></button>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>крестики нолики</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mainstyle.css') }}">
+    <link rel="icon" sizes="1378x1378" href="{{ url_for('static', filename='icon/icon.ico')}}">
+</head>
+<body>
+    <h1 class="hm">Крестики нолики</h1>
+    <button class="butt"><a href="/start_game">начать новую игру</a></button>
+    <div id="games"></div>
+    <script src="{{ url_for('static', filename='js/games.js') }}"></script>
+</body>
 </html>

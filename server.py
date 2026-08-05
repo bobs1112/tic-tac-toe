@@ -1,5 +1,5 @@
 #python
-from flask import Flask, render_template, jsonify, session
+from flask import Flask, render_template, jsonify, session, redirect
 from flask_session import Session
 import threading
 import time
@@ -27,7 +27,7 @@ class Game:
 
         self.timer_theard.start()
 
-        self.time_left = 0
+        self.time_left = 15
         self.cells = [['_', '_', '_'], 
                      ['_', '_', '_'],
                      ['_', '_', '_'],  ]
@@ -128,16 +128,33 @@ class Game:
 
 
 
-
-
-
 @app.route("/")
 def index():
     return render_template('index.html')
 
-
+@app.route("/win/<string:sym>")
+def win(sym):
+    if sym == "X":
+        return render_template('winner.html', symh = "крестики")
+    elif sym == "O":
+        return render_template('winner.html', symh = "нолики")
+    elif sym != "O" and str(sym) != "X":
+        return 'error'
 games = {}
 
+@app.route('/start_game')
+def newgame():
+    global games 
+    return redirect(f'/start_game/' + str(len(games) + 1))
+@app.route('/games')
+def returngame():
+    global games
+    result = len(games)
+    return jsonify(
+        {
+             'lenght' : result
+        }
+    )
 
 @app.route('/start_game/<int:id>')
 def start(id) :
@@ -184,12 +201,14 @@ def returncells(id):
         });
     if game.TimeOut('X'):
         return jsonify({
+            'winner' : 'O',
             'state' : "win",
             'message' : "крестики вышли по времени",
             'cells' : game.cells
         });
     if game.TimeOut('O'):
         return jsonify({
+            'winner' : 'X',
             'state' : "win",
             'message' : "нолики вышли по времени",
             'cells' : game.cells

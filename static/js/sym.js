@@ -1,6 +1,7 @@
 // js
 const tg = ['#oos', '#ots', '#oths', '#tos', '#tts', '#tths', '#thos', '#thts', '#thths']
 
+sound = new Audio('/static/sound/click.mp3')
 
 async function MakeMove(column, row) {
     const currentUrl = window.location.href
@@ -34,7 +35,8 @@ async function MakeMove(column, row) {
     } catch (error) {
         console.error(error.message);
     }
-       
+    sound.currentTime = 0;
+    sound.play()
 }
 async function update(cells) {
     document.querySelector('#oos').textContent = cells[0][0];
@@ -53,7 +55,6 @@ async function update(cells) {
 
 document.querySelector('#oo').onclick = function() {
     MakeMove(0, 0);
-    
 }
 document.querySelector('#ot').onclick = function() {
     MakeMove(0, 1);

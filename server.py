@@ -106,7 +106,7 @@ class Game:
         self.timer_theard.join()
         self.cells[column][row] = 'X'
         if self.exa('X') :
-            currentState = gameComplete
+            self.currentState = gameComplete
             return
         
         self.currentState = nullMakeMove
@@ -118,7 +118,7 @@ class Game:
         self.timer_theard.join()
         self.cells[column][row] = 'O'
         if self.exa('O') :
-            currentState = gameComplete
+            self.currentState = gameComplete
             return
         
         self.currentState = crossMakeMove
@@ -138,7 +138,7 @@ def win(sym):
         return render_template('winner.html', symh = "крестики")
     elif sym == "O":
         return render_template('winner.html', symh = "нолики")
-    elif sym != "O" and str(sym) != "X":
+    elif sym != "O" and sym != "X":
         return 'error'
 games = {}
 

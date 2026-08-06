@@ -296,6 +296,6 @@ def make_move(id, column, row):
 #               return jsonify(answer)
 
     return ''
-
+ 
 if __name__ == '__main__':
     app.run(debug=True)

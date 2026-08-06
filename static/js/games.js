@@ -1,13 +1,13 @@
-function AddButt(id){
+function AddButton(id){
     const link = document.createElement('a');
-    const ButtGame = document.createElement('button')
+    const ButtonGame = document.createElement('button')
     
     link.href = window.location.href + `start_game/${id}`;
 
-    ButtGame.textContent = `зайти в игру: ${id}`;
-    ButtGame.className = "butt"
+    ButtonGame.textContent = `зайти в игру: ${id}`;
+    ButtonGame.className = "button"
 
-    link.append(ButtGame);
+    link.append(ButtonGame);
     document.querySelector('#games').append(link);
 }
 async function updategame() {
@@ -23,7 +23,7 @@ async function updategame() {
                 // здесь тоже json
                 json = await response.json();
                 for (let i = 1; i <=json.lenght; i++) {
-                    AddButt(i);
+                    AddButton(i);
                 }
                 //await update();
                 

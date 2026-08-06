@@ -23,13 +23,7 @@ async function MakeMove(column, row) {
 
         update(result.cells);
 
-        if(result.winner == 'X') {
-            alert("Выиграли крестики!")
-        }
-
-        if(result.winner == 'O') {
-            alert("Выиграли нолики!")
-        }
+        
 
                 
     } catch (error) {

@@ -14,7 +14,8 @@ nullMakeMove = "Нолики делают ход"
 crossTimeOut = "Крестики вышли по времени"
 nullTimeOut = "Нолики вышли по времени"
 gameComplete = "Конец игры"
-
+crossWin = "крестики выиграли"
+nullWin = "нолики выиграли"
 Session(app)
 class Game:
     def empty():
@@ -84,7 +85,7 @@ class Game:
         return self.currentState == beforeStartState
     
     def IsGameComplete(self):
-        return self.currentState == gameComplete
+        return self.currentState == nullWin or self.currentState == crossWin
     
     def IsWaitSecondPlayerGame(self):
         return self.currentState == waitSecondPlayerGameState
@@ -106,7 +107,7 @@ class Game:
         self.timer_theard.join()
         self.cells[column][row] = 'X'
         if self.exa('X') :
-            self.currentState = gameComplete
+            self.currentState = crossWin
             return
         
         self.currentState = nullMakeMove
@@ -118,7 +119,7 @@ class Game:
         self.timer_theard.join()
         self.cells[column][row] = 'O'
         if self.exa('O') :
-            self.currentState = gameComplete
+            self.currentState = nullWin
             return
         
         self.currentState = crossMakeMove
@@ -213,11 +214,27 @@ def returncells(id):
             'message' : "нолики вышли по времени",
             'cells' : game.cells
         });
+    if game.exa('X'):
+        return jsonify({
+            'winner' : 'X',
+            'state' : "win",
+            'message' : "крестики выиграли",
+            'cells' : game.cells
+        });
+    if game.exa('O'):
+        return jsonify({
+            'winner' : 'O',
+            'state' : "win",
+            'message' : "нолики выиграли",
+            'cells' : game.cells
+        });
+
     return jsonify({
             'state' : "netural",
             'message' : "",
             'cells' : game.cells
         });
+    
 
 @app.route('/start_game/<int:id>/make_move/<int:column>/<int:row>')
 def make_move(id, column, row):

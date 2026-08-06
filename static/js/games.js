@@ -30,7 +30,9 @@ async function updategame() {
             } catch (error) {
                 console.error(error.message);
             }
-
+            if (json.lenght >0){
+                document.getElementById('h').style.display = 'none';
+            }
             updategame();
     }, 1000);
 }

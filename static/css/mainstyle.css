@@ -24,6 +24,13 @@
     display: flex;
     justify-content: center;
 }
+.ht{
+    text-align: center;
+    font-family: URW Chancery L, cursive;
+    color: rgba(10, 54, 75, 0.719);
+    font-size: 55px;
+    opacity: 0.3;
+}
 body{
     background-color: rgba(7, 65, 92, 0.719);
 }

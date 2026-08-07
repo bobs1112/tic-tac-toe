@@ -1,9 +1,10 @@
-function AddButton(id){
+function AddButton(id, state){
     const link = document.createElement('a');
     const ButtonGame = document.createElement('button')
-    
     link.href = window.location.href + `start_game/${id}`;
-
+    if (state == "нолики выиграли" || state == "крестики выиграли" || state == "Нолики вышли по времени" || state == "Крестики вышли по времени" || state == "Крестики делают ход" || state == "Нолики делают ход"){
+        ButtonGame.disabled = true;
+    }
     ButtonGame.textContent = `зайти в игру: ${id}`;
     ButtonGame.className = "button"
 
@@ -22,9 +23,12 @@ async function updategame() {
                 document.querySelector('#games').textContent = '';
                 // здесь тоже json
                 json = await response.json();
-                for (let i = 1; i <=json.lenght; i++) {
-                    AddButton(i);
-                }
+                json.keys.forEach((element, index) => {
+                    AddButton(element.index, element.state)
+                });
+                //for (let i = 1; i <=json.lenght; i++) {
+                    //AddButton(i);
+                //}
                 //await update();
                 
             } catch (error) {

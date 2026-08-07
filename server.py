@@ -13,7 +13,6 @@ crossMakeMove = "Крестики делают ход"
 nullMakeMove = "Нолики делают ход"
 crossTimeOut = "Крестики вышли по времени"
 nullTimeOut = "Нолики вышли по времени"
-gameComplete = "Конец игры"
 crossWin = "крестики выиграли"
 nullWin = "нолики выиграли"
 Session(app)
@@ -126,7 +125,8 @@ class Game:
         self.stop_event.clear()
         self.timer_thread = threading.Thread(target=self.delay_action, args=('X'))
         self.timer_thread.start()
-
+    def CurenntStateText(self):
+        return self.currentState
 
 
 @app.route("/")
@@ -147,13 +147,19 @@ games = {}
 def newgame():
     global games 
     return redirect(f'/start_game/' + str(len(games) + 1))
+
 @app.route('/games')
 def returngame():
     global games
-    result = len(games)
+    result = []
+    for index, game in games.items():
+        result.append({
+            'index':index, 'state': game.CurenntStateText()
+        })
+
     return jsonify(
         {
-             'lenght' : result
+            'keys' : result
         }
     )
 

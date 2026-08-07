@@ -31,6 +31,19 @@
     font-size: 55px;
     opacity: 0.3;
 }
+.button:disabled{
+    text-align: center;
+    font-family: URW Chancery L, cursive;
+    color: rgba(168, 181, 215, 0.719);
+    background-color:rgba(135, 147, 153, 0.719);
+    border-radius: 30px;
+    border: none;
+    width: 200px; height: 120px;
+    font-weight: bold;
+    font-size: 30px;
+    margin: 15px;
+    transition: transform .9s;
+}
 body{
     background-color: rgba(7, 65, 92, 0.719);
 }

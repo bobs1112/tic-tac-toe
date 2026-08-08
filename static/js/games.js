@@ -24,6 +24,9 @@ async function updategame() {
                 // здесь тоже json
                 json = await response.json();
                 json.keys.forEach((element, index) => {
+                    if (element.index != 0){
+                        document.getElementById('h').style.display = 'none';
+                    };
                     AddButton(element.index, element.state)
                 });
                 //for (let i = 1; i <=json.lenght; i++) {
@@ -34,7 +37,7 @@ async function updategame() {
             } catch (error) {
                 console.error(error.message);
             }
-            if (json.lenght >0){
+            if (json.keys.index >0){
                 document.getElementById('h').style.display = 'none';
             }
             updategame();

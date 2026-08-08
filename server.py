@@ -146,7 +146,7 @@ games = {}
 @app.route('/start_game')
 def newgame():
     global games 
-    return redirect(f'/start_game/' + str(len(games) + 1))
+    return redirect(f'/start_game/{str(len(games) + 1)}')
 
 @app.route('/games')
 def returngame():

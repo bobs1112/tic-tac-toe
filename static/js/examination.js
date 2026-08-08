@@ -13,15 +13,19 @@ async function updatecells() {
             console.log(result);
             document.querySelector('#state').textContent = result.message;
             if (result.state == "win"){
-                if (result.winner == 'X') {
-                    window.location.href = "http://localhost:5000/win/X";
-                } 
-                if (result.winner == 'O') {
-                    window.location.href = "http://localhost:5000/win/O";
-                }
-                return;
+                const winSound = new Audio('/static/sound/win.mp3')
+                winSound.currentTime = 0
+                winSound.play()
+                setTimeout(function() {
+                    if (result.winner == 'X') {
+                        window.location.href = "http://localhost:5000/win/X";
+                    } 
+                    if (result.winner == 'O') {
+                        window.location.href = "http://localhost:5000/win/O";
+                    }
+                    return;
+                }, 500);
             }
-                
                 await update(result.cells);
                 
             } catch (error) {

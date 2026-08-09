@@ -1,4 +1,5 @@
 // js
+let played = true
 async function updatecells() {
         setTimeout(async function() {
             const currentUrl = window.location.href
@@ -14,8 +15,11 @@ async function updatecells() {
             document.querySelector('#state').textContent = result.message;
             if (result.state == "win"){
                 const winSound = new Audio('/static/sound/win.mp3')
-                winSound.currentTime = 0
-                winSound.play()
+                if (played == true) {
+                    winSound.currentTime = 0
+                    winSound.play()
+                    played = false
+                }
                 setTimeout(function() {
                     if (result.winner == 'X') {
                         window.location.href = "http://localhost:5000/win/X";
@@ -24,7 +28,7 @@ async function updatecells() {
                         window.location.href = "http://localhost:5000/win/O";
                     }
                     return;
-                }, 500);
+                }, 1000);
             }
                 await update(result.cells);
                 

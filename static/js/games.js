@@ -3,10 +3,14 @@ function AddButton(id, state){
     const link = document.createElement('a');
     const ButtonGame = document.createElement('button')
     link.href = window.location.href + `start_game/${id}`;
-    if (state == "нолики выиграли" || state == "крестики выиграли" || state == "Нолики вышли по времени" || state == "Крестики вышли по времени" || state == "Крестики делают ход" || state == "Нолики делают ход"){
-        ButtonGame.disabled = true;
+    if (state == "нолики выиграли" || state == "крестики выиграли" || state == "Нолики вышли по времени" || state == "Крестики вышли по времени"){
+        return;
+        //ButtonGame.disabled = true;
     }
     ButtonGame.textContent = `зайти в игру: ${id}`;
+    if (state == "Крестики делают ход" || state == "Нолики делают ход"){
+        ButtonGame.textContent = `наблюдать за игрой: ${id}`;
+    }
     ButtonGame.className = "button"
 
     link.append(ButtonGame);

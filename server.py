@@ -31,7 +31,7 @@ class Game:
         self.cells = [['_', '_', '_'], 
                      ['_', '_', '_'],
                      ['_', '_', '_'],  ]
-        
+
     def returndiagonal(self, diagonal):
     
         if diagonal == 0:
@@ -180,7 +180,8 @@ def start(id) :
         existGame.currentState = crossMakeMove
         return render_template('game.html')
             
-    return "Error"
+    session["role"] = 'spectator'
+    return render_template('game.html')
 
 
 @app.route('/start_game/<int:id>/cells')
@@ -247,6 +248,8 @@ def make_move(id, column, row):
     global games
     game : Game = games[id]
     role = session["role"]
+    if role == 'spectator':
+        return
     if game.CellIsEmpty(column, row):
         return jsonify({
             'success' : False,

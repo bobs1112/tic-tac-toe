@@ -1,4 +1,4 @@
-// js
+// js 
 function AddButton(id, state){
     const link = document.createElement('a');
     const ButtonGame = document.createElement('button')

@@ -16,8 +16,10 @@ async function updatecells() {
             if (result.state == "win"){
                 const winSound = new Audio('/static/sound/win.mp3')
                 if (played == true) {
-                    winSound.currentTime = 0
-                    winSound.play()
+                    if (OffSound == false){
+                        winSound.currentTime = 0
+                        winSound.play()
+                    };
                     played = false
                 }
                 setTimeout(function() {

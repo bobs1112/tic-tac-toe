@@ -1,3 +1,4 @@
+/* css */
 .hm{
     text-align: center;
     font-family: URW Chancery L, cursive;
@@ -44,6 +45,10 @@
     margin: 15px;
     transition: transform .9s;
 }
-body{
+.container2{
+    display: flex;
+    justify-content: right;
+}
+.body{
     background-color: rgba(7, 65, 92, 0.719);
 }

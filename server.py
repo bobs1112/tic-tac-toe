@@ -249,12 +249,15 @@ def make_move(id, column, row):
     game : Game = games[id]
     role = session["role"]
     if role == 'spectator':
-        return
+        return jsonify({
+            'success' : False,
+            'error' : "ты наблюдатель:P"
+        })
     if game.CellIsEmpty(column, row):
         return jsonify({
             'success' : False,
             'error' : "Эта ячейка уже занята!"
-        });
+        })
     if game.PlayerCanMakeMove(role) == False:
         return  jsonify({
             'success' : False,

@@ -1,8 +1,8 @@
 // js
 const tg = ['#oos', '#ots', '#oths', '#tos', '#tts', '#tths', '#thos', '#thts', '#thths']
 
-sound = new Audio('/static/sound/click.mp3')
-
+let sound = new Audio('/static/sound/click.mp3')
+let OffSound = false
 async function MakeMove(column, row) {
     const currentUrl = window.location.href
     const url = currentUrl + `/make_move/${column}/${row}`;
@@ -28,6 +28,9 @@ async function MakeMove(column, row) {
                 
     } catch (error) {
         console.error(error.message);
+    }
+    if (OffSound == true){
+        return;
     }
     sound.currentTime = 0;
     sound.play()
@@ -73,4 +76,16 @@ document.querySelector('#tht').onclick = function() {
 }
 document.querySelector('#thth').onclick = function() {
     MakeMove(2, 2);
+}
+document.querySelector('#soundbutton').onclick = function(){
+    if (OffSound == false){
+        document.querySelector('#soundbutton').textContent = "🔇"
+        OffSound = true
+        return;
+    }
+    if (OffSound == true){
+        document.querySelector('#soundbutton').textContent = "🔉"
+        OffSound = false
+        return;
+    }
 }

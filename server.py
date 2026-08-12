@@ -34,7 +34,6 @@ class Game:
                      ['_', '_', '_'],
                      ['_', '_', '_'],  ]
     def returndiagonal(self, diagonal):
-    
         if diagonal == 0:
             return [self.cells[0][0], self.cells[1][1], self.cells[2][2]]
         elif diagonal == 1:
@@ -66,11 +65,23 @@ class Game:
                 row = theColumn.index('_')
                 self.cells[row][i] = sym
                 return True
-        for i in range(2):
-            TheDiagonal = self.returndiagonal(i)
-            if self.count(TheDiagonal, 'X') == 2 and self.count(TheDiagonal , '_') == 1:
-                
-                return True
+        
+        TheDiagonal = self.returndiagonal(0)
+        if self.count(TheDiagonal, 'X') == 2 and self.count(TheDiagonal , '_') == 1:
+            diagonal = TheDiagonal.index('_')
+            self.cells[diagonal][diagonal] = 'O'
+            return True
+        TheDiagginal2 = self.returndiagonal(1)
+        if self.count(TheDiagginal2, 'X') == 2 and self.count(TheDiagginal2, '_') == 1:
+            diagonal2 = TheDiagginal2.index('_')
+            if diagonal2 == 2:
+                self.cells[2][0] = 'O'
+            elif diagonal2 == 1:
+                self.cells[1][1] = 'O'
+            elif diagonal2 == 0:
+                self.cells[0][2] = 'O'
+            return True
+        
         return False
     
     def aiTryToWin(self, sym):
@@ -86,11 +97,21 @@ class Game:
                 row = theColumn.index('_')
                 self.cells[row][i] = sym
                 return True
-        for i in range(2):
-            TheDiagonal = self.returndiagonal(i)
-            if self.count(TheDiagonal, sym) == 2 and self.count(TheDiagonal , '_') == 1:
-                
-                return True
+        TheDiagonal = self.returndiagonal(0)
+        if self.count(TheDiagonal, 'O') == 2 and self.count(TheDiagonal , '_') == 1:
+            diagonal = TheDiagonal.index('_')
+            self.cells[diagonal][diagonal] = 'O'
+            return True
+        TheDiagginal2 = self.returndiagonal(1)
+        if self.count(TheDiagginal2, 'O') == 2 and self.count(TheDiagginal2, '_') == 1:
+            diagonal2 = TheDiagginal2.index('_')
+            if diagonal2 == 2:
+                self.cells[2][0] = 'O'
+            elif diagonal2 == 1:
+                self.cells[1][1] = 'O'
+            elif diagonal2 == 0:
+                self.cells[0][2] = 'O'
+            return True
         return False
     
     def exa(self, sym):

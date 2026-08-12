@@ -24,10 +24,10 @@ async function updatecells() {
                 }
                 setTimeout(function() {
                     if (result.winner == 'X') {
-                        window.location.href = "http://localhost:5000/win/X";
+                        window.location.href = "/win/X";
                     } 
                     if (result.winner == 'O') {
-                        window.location.href = "http://localhost:5000/win/O";
+                        window.location.href = "/win/O";
                     }
                     return;
                 }, 1000);

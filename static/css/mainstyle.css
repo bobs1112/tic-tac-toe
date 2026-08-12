@@ -52,3 +52,10 @@
 .body{
     background-color: rgba(7, 65, 92, 0.719);
 }
+a:link, a:visited {
+  color: #a9a9a9;
+}
+
+a:hover, a:active {
+  color: #dbdbdb; 
+}

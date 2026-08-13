@@ -29,7 +29,7 @@ class Game:
 
         self.timer_theard.start()
 
-        self.time_left = 15
+        self.time_left = 30
         self.cells = [['_', '_', '_'], 
                      ['_', '_', '_'],
                      ['_', '_', '_'],  ]

@@ -129,8 +129,8 @@ class Game:
                 return True
         return False
     def delay_action(self, sym):
-        self.time_left = 15
-        for i in range(15):
+        self.time_left = 30
+        for i in range(30):
             time.sleep(1)
             self.time_left -= 1
             if self.stop_event.is_set():
